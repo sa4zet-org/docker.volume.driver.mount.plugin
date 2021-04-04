@@ -1,0 +1,18 @@
+{
+  "description": "Mount volume driver",
+  "documentation": "https://github.com/sa4zet-org/docker.volume.driver.mount",
+  "entrypoint": ["/usr/bin/mountVolumeDriver"],
+  "network": {
+    "type": "host"
+  },
+  "interface": {
+    "types": ["docker.volumedriver/1.0"],
+    "socket": "mountVolumeDriver.sock"
+  },
+  "propagatedMount": "/mnt/docker.volume.driver.mounts",
+  "linux": {
+    "capabilities": [
+      "CAP_SYS_ADMIN"
+    ]
+  }
+}
