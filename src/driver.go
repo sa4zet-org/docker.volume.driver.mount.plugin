@@ -28,18 +28,24 @@ func newMountVolumeDriver() *MountVolumeDriver {
 	}
 }
 
-// Get the list of capabilities the driver supports.
-// Supported scopes are global and local
-// Scope allows cluster managers to handle the volume in different ways.
-// For instance, a scope of global, signals to the cluster manager that it
-// only needs to create the volume once instead of on each Docker host.
+/*
+Capabilities
+Get the list of capabilities the driver supports.
+Supported scopes are global and local
+Scope allows cluster managers to handle the volume in different ways.
+For instance, a scope of global, signals to the cluster manager that it
+only needs to create the volume once instead of on each Docker host.
+*/
 func (driver *MountVolumeDriver) Capabilities() *volume.CapabilitiesResponse {
 	return &volume.CapabilitiesResponse{Capabilities: volume.Capability{Scope: "local"}}
 }
 
-// Instruct the plugin that the user wants to create a volume, given a user specified volume name.
-// The plugin does not need to actually manifest the volume on the filesystem yet (until Mount is called).
-// Opts is a map of driver specific options passed through from the user request.
+/*
+Create
+Instruct the plugin that the user wants to create a volume, given a user specified volume name.
+The plugin does not need to actually manifest the volume on the filesystem yet (until Mount is called).
+Opts is a map of driver specific options passed through from the user request.
+*/
 func (driver *MountVolumeDriver) Create(createRequest *volume.CreateRequest) error {
 	_, present := driver.mounts[createRequest.Name]
 	if present {
